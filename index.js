@@ -49,9 +49,13 @@ app.get('/api/waitlist', async (req, res) => {
     const members = await Waitlist.find();
     res.json(members);
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({
+      error: 'Failed to fetch waitlist members',
+      details: error.message  // Optional: for debugging
+    });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Waitlist backend running on port ${PORT}`);
