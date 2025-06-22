@@ -38,7 +38,7 @@ app.post('/api/waitlist', async (req, res) => {
     if (error.code === 11000) {
       res.status(400).json({ error: 'Email already exists' });
     } else {
-      res.status(500).json({ error: 'Server error' });
+      res.status(500).json({ error: error });
     }
   }
 });
@@ -49,7 +49,7 @@ app.get('/api/waitlist', async (req, res) => {
     const members = await Waitlist.find();
     res.json(members);
   } catch (error) {
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: error });
   }
 });
 
