@@ -12,11 +12,19 @@ app.use(bodyParser.json());
 
 // Initialize DB
 import mongoose from 'mongoose';
-mongoose.connect("mongodb+srv://i220609:ahmad2772@cluster0.1qzyfep.mongodb.net/roohai").then(()=>{
-    console.log("Connected")
-}).catch(err=>{
-   console.log(err) 
+
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://i220609:ahmad2772@cluster0.1qzyfep.mongodb.net/roohai";
+
+mongoose.connect(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 })
+.then(() => {
+  console.log("✅ MongoDB Connected");
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection error:", err.message);
+});
 
 const userSchema = mongoose.Schema({
   email: {
