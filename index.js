@@ -6,9 +6,8 @@ import bodyParser from 'body-parser';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors({
-  origin: 'https://myroohai.com'
-}));
+app.use(cors());
+
 app.use(bodyParser.json());
 
 // Initialize DB
@@ -35,6 +34,7 @@ app.post('/api/waitlist', async (req, res) => {
     await Waitlist.create({ email });
     res.status(201).json({ message: 'Added to waitlist' });
   } catch (error) {
+    console.log(error)
     if (error.code === 11000) {
       res.status(400).json({ error: 'Email already exists' });
     } else {
